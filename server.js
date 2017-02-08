@@ -3,7 +3,7 @@ var sailsIOClient = require('sails.io.js');
 var SendSlackMessage = require('./lib/slack');
 
 var Gpio = require('pigpio').Gpio,
-  motor = new Gpio(11, {mode: Gpio.OUTPUT}),
+  motor = new Gpio(17, {mode: Gpio.OUTPUT}),
   pulseWidth = 1000,
   increment = 100;
 
