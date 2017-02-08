@@ -2,6 +2,22 @@ var socketIOClient = require('socket.io-client');
 var sailsIOClient = require('sails.io.js');
 var SendSlackMessage = require('./lib/slack');
 
+var Gpio = require('pigpio').Gpio,
+  motor = new Gpio(11, {mode: Gpio.OUTPUT}),
+  pulseWidth = 1000,
+  increment = 100;
+
+setInterval(function () {
+  motor.servoWrite(pulseWidth);
+
+  pulseWidth += increment;
+  if (pulseWidth >= 2000) {
+    increment = -100;
+  } else if (pulseWidth <= 1000) {
+    increment = 100;
+  }
+}, 1000);
+
 // Instantiate the socket client (`io`)
 // (for now, you must explicitly pass in the socket.io client when using this library from Node.js)
 var io = sailsIOClient(socketIOClient);
