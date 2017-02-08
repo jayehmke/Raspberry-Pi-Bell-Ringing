@@ -1,0 +1,17 @@
+{
+  "name": "dd-rasp-pi",
+  "version": "1.0.0",
+  "description": "Raspberry Pi at DD for office stuff.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "Jason Ehmke",
+  "license": "MIT",
+  "dependencies": {
+    "sails.io.js": "^1.1.4",
+    "slack-node": "^0.1.8",
+    "socket.io-client": "^1.7.2"
+  }
+}
