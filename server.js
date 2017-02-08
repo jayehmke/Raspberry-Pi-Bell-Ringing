@@ -2,10 +2,10 @@ var socketIOClient = require('socket.io-client');
 var sailsIOClient = require('sails.io.js');
 var SendSlackMessage = require('./lib/slack');
 
-var Gpio = require('pigpio').Gpio,
-  motor = new Gpio(17, {mode: Gpio.OUTPUT}),
-  pulseWidth = 1000,
-  increment = 100;
+var Gpio = require('pigpio').Gpio;
+var motor = new Gpio(17, {mode: Gpio.OUTPUT});
+var pulseWidth = 1000;
+var increment = 100;
 
 
 // Instantiate the socket client (`io`)
@@ -19,16 +19,16 @@ io.socket.on('user', function(user) {
 
   if (user.verb === 'created') {
 
-    SendSlackMessage(user.data.name);
+    setInterval(function () {
+      motor.servoWrite(pulseWidth);
 
-    motor.servoWrite(pulseWidth);
-
-    pulseWidth += increment;
-    if (pulseWidth >= 2000) {
-      increment = -100;
-    } else if (pulseWidth <= 1000) {
-      increment = 100;
-    }
+      pulseWidth += increment;
+      if (pulseWidth >= 2000) {
+        increment = -100;
+      } else if (pulseWidth <= 1000) {
+        increment = 100;
+      }
+    }, 1000);
 
   }
 
